@@ -8,7 +8,7 @@ import { BudgetNew } from "@/app/BudgetNew"
 
 export type StackRoutesList = {
   home: undefined
-  "budget-new": undefined | { id: string }
+  "budget-new": undefined
 }
 
 export type StackRoutesProps<T extends keyof StackRoutesList> =
