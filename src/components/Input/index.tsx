@@ -13,7 +13,12 @@ export function Input({ title, iconName, ...rest }: InputProps) {
     <View style={styles.container}>
       {iconName && <MaterialIcons name={iconName} style={styles.searchIcon} />}
 
-      <TextInput style={styles.search} placeholder={title} {...rest} />
+      <TextInput
+        style={styles.search}
+        placeholder={title}
+        placeholderTextColor="#676767"
+        {...rest}
+      />
     </View>
   )
 }

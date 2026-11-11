@@ -113,7 +113,12 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
               Você tem 1 item em rascunho
             </Text>
           </View>
-          <Button title="Novo" iconName="add" />
+
+          <Button
+            title="Novo"
+            iconName="add"
+            onPress={() => navigation.navigate("budget-new")}
+          />
         </View>
 
         <View style={styles.content}>
@@ -130,7 +135,8 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
                 status={item.item.status}
               />
             )}
-            style={styles.listContent}
+            style={styles.scroll}
+            contentContainerStyle={styles.listContent}
             showsVerticalScrollIndicator={false}
           />
         </View>

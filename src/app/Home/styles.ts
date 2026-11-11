@@ -33,6 +33,9 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   listContent: {
-    gap: 24,
+    gap: 8,
+  },
+  scroll: {
+    flex: 1,
   },
 })
