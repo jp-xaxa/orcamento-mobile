@@ -1,0 +1,1 @@
+export type OptionsStatus = "Aprovado" | "Recusado" | "Rascunho" | "Enviado"
