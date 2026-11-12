@@ -72,6 +72,11 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 20,
     gap: 20,
   },
+  investCardResumeFooter: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   investCardResumeTitle: {
     fontSize: 14,
     fontFamily: "Lato_400Regular",
@@ -101,8 +106,10 @@ export const styles = StyleSheet.create({
   },
   containerDiscount: {
     minHeight: 32,
+    minWidth: 72,
     flexDirection: "row",
     alignItems: "center",
+    justifyContent: "flex-end",
     paddingHorizontal: 16,
     gap: 8,
     padding: 4,
@@ -113,6 +120,7 @@ export const styles = StyleSheet.create({
   },
   discount: {
     color: "#0F0F0F",
+    width: 36,
     fontSize: 16,
   },
   discountIcon: {

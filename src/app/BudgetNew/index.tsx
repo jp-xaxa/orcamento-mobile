@@ -1,9 +1,11 @@
+import { useState } from "react"
 import {
   Text,
   View,
   ScrollView,
   TouchableOpacity,
   TextInput,
+  KeyboardAvoidingView,
 } from "react-native"
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context"
 import { MaterialIcons } from "@expo/vector-icons"
@@ -18,7 +20,11 @@ import { Button } from "@/components/Button"
 
 import { styles } from "./styles"
 
+import type { OptionsStatus } from "@/types/OptionsStatus"
+
 export function BudgetNew({ navigation }: StackRoutesProps<"budget-new">) {
+  const [status, setStatus] = useState<OptionsStatus | null>(null)
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={styles.container}>
@@ -30,87 +36,182 @@ export function BudgetNew({ navigation }: StackRoutesProps<"budget-new">) {
           <Text style={styles.headerTitle}>Orçamento</Text>
         </View>
 
-        <ScrollView
-          style={styles.scroll}
-          contentContainerStyle={styles.content}
-        >
-          <InfosCard title="Informações gerais" iconName="store">
-            <View style={styles.generalInformationCard}>
-              <Input title="Título" />
-              <Input title="Cliente" />
-            </View>
-          </InfosCard>
-
-          <InfosCard title="Status" iconName="sell">
-            <View style={styles.statusCard}>
-              <StatusCheck status="Rascunho" typeBox="circle" />
-              <StatusCheck status="Aprovado" typeBox="circle" />
-              <StatusCheck status="Enviado" typeBox="circle" />
-              <StatusCheck status="Recusado" typeBox="circle" />
-            </View>
-          </InfosCard>
-
-          <InfosCard title="Serviços Inclusos" iconName="sticky-note-2">
-            <View style={styles.servicesIncludedCard}>
-              <ServiceItem
-                title="Design de interfaces"
-                subTitle="Criação de wireframes e protótipos de alta fidelidade"
-                price="3.847,50"
-                quantity="1"
-                edit
-              />
-
-              <ServiceItem
-                title="Implantação e suporte"
-                subTitle="Publicação nas lojas de aplicativos e suporte técnico"
-                price="3.847,50"
-                quantity="1"
-                edit
-              />
-
-              <TouchableOpacity style={styles.newServiceButton}>
-                <MaterialIcons name="add" style={styles.newServiceButtonIcon} />
-                <Text style={styles.newServiceButtonText}>
-                  Adicionar serviço
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </InfosCard>
-
-          <InfosCard title="Investimento" iconName="account-balance-wallet">
-            <View style={styles.investCardResume}>
-              <View style={[styles.row, { justifyContent: "space-between" }]}>
-                <Text style={styles.investCardResumeTitle}>Subtotal</Text>
-
-                <View style={[styles.row, { gap: 12 }]}>
-                  <Text style={styles.investCardResumeSubTitle}>8 itens</Text>
-
-                  <Text style={styles.investCardResumeTitle}>R$ 3.847,50</Text>
-                </View>
+        <KeyboardAvoidingView behavior="padding" style={styles.scroll}>
+          <ScrollView
+            style={styles.scroll}
+            contentContainerStyle={styles.content}
+          >
+            <InfosCard title="Informações gerais" iconName="store">
+              <View style={styles.generalInformationCard}>
+                <Input title="Título" />
+                <Input title="Cliente" />
               </View>
+            </InfosCard>
 
-              <View style={[styles.row, { justifyContent: "space-between" }]}>
-                <View style={[styles.row, { gap: 8 }]}>
-                  <Text style={styles.investCardResumeTitle}>Desconto </Text>
+            <InfosCard title="Status" iconName="sell">
+              <View style={styles.statusCard}>
+                <StatusCheck
+                  status="Rascunho"
+                  typeBox="circle"
+                  onPress={() => setStatus("Rascunho")}
+                  check={status === "Rascunho"}
+                />
+                <StatusCheck
+                  status="Aprovado"
+                  typeBox="circle"
+                  onPress={() => setStatus("Aprovado")}
+                  check={status === "Aprovado"}
+                />
+                <StatusCheck
+                  status="Enviado"
+                  typeBox="circle"
+                  onPress={() => setStatus("Enviado")}
+                  check={status === "Enviado"}
+                />
+                <StatusCheck
+                  status="Recusado"
+                  typeBox="circle"
+                  onPress={() => setStatus("Recusado")}
+                  check={status === "Recusado"}
+                />
+              </View>
+            </InfosCard>
 
-                  <View style={styles.containerDiscount}>
-                    <TextInput
-                      keyboardType="number-pad"
-                      style={styles.discount}
-                      placeholder="0"
-                    />
+            <InfosCard title="Serviços Inclusos" iconName="sticky-note-2">
+              <View style={styles.servicesIncludedCard}>
+                <ServiceItem
+                  title="Design de interfaces"
+                  subTitle="Criação de wireframes e protótipos de alta fidelidade"
+                  price="3.847,50"
+                  quantity="1"
+                  edit
+                />
 
-                    <MaterialIcons name="percent" style={styles.discountIcon} />
+                <ServiceItem
+                  title="Implantação e suporte"
+                  subTitle="Publicação nas lojas de aplicativos e suporte técnico"
+                  price="3.847,50"
+                  quantity="1"
+                  edit
+                />
+
+                <TouchableOpacity style={styles.newServiceButton}>
+                  <MaterialIcons
+                    name="add"
+                    style={styles.newServiceButtonIcon}
+                  />
+                  <Text style={styles.newServiceButtonText}>
+                    Adicionar serviço
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </InfosCard>
+
+            <InfosCard title="Investimento" iconName="account-balance-wallet">
+              <View style={styles.investCardResume}>
+                <View style={[styles.row, { justifyContent: "space-between" }]}>
+                  <Text style={styles.investCardResumeTitle}>Subtotal</Text>
+
+                  <View style={[styles.row, { gap: 12 }]}>
+                    <Text style={styles.investCardResumeSubTitle}>8 itens</Text>
+
+                    <Text style={styles.investCardResumeTitle}>
+                      R$ 3.847,50
+                    </Text>
                   </View>
                 </View>
 
-                <Text style={styles.investCardTitleDiscount}>- R$ 200,00</Text>
-              </View>
-            </View>
+                <View style={[styles.row, { justifyContent: "space-between" }]}>
+                  <View style={[styles.row, { gap: 8 }]}>
+                    <Text style={styles.investCardResumeTitle}>Desconto </Text>
 
-            <View style={styles.investCardResume}></View>
-          </InfosCard>
-        </ScrollView>
+                    <View style={styles.containerDiscount}>
+                      <TextInput
+                        keyboardType="number-pad"
+                        style={styles.discount}
+                        placeholder="0"
+                      />
+
+                      <MaterialIcons
+                        name="percent"
+                        style={styles.discountIcon}
+                      />
+                    </View>
+                  </View>
+
+                  <Text style={styles.investCardTitleDiscount}>
+                    - R$ 200,00
+                  </Text>
+                </View>
+              </View>
+
+              <View
+                style={[
+                  styles.investCardResume,
+                  styles.investCardResumeFooter,
+                  { borderTopWidth: 1, borderColor: "#E6E5E5" },
+                ]}
+              >
+                <Text
+                  style={{
+                    color: "#0F0F0F",
+                    fontSize: 14,
+                    lineHeight: 18,
+                    fontFamily: "Lato_700Bold",
+                  }}
+                >
+                  Valor total
+                </Text>
+
+                <View
+                  style={{
+                    gap: 8,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "#4A4A4A",
+                      fontSize: 14,
+                      lineHeight: 16,
+                      fontFamily: "Lato_400Regular",
+                    }}
+                  >
+                    R$ 4.050,00
+                  </Text>
+
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 4,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        color: "#4A4A4A",
+                        fontSize: 12,
+                        lineHeight: 16,
+                        fontFamily: "Lato_400Regular",
+                      }}
+                    >
+                      R$
+                    </Text>
+                    <Text
+                      style={{
+                        color: "#0F0F0F",
+                        fontSize: 16,
+                        lineHeight: 22,
+                        fontFamily: "Lato_700Bold",
+                      }}
+                    >
+                      3.847,50
+                    </Text>
+                  </View>
+                </View>
+              </View>
+            </InfosCard>
+          </ScrollView>
+        </KeyboardAvoidingView>
 
         <View style={[styles.row, styles.footer]}>
           <Button
