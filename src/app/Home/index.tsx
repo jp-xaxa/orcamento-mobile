@@ -133,6 +133,9 @@ export function Home({ navigation }: StackRoutesProps<"home">) {
                 subTitle={item.item.subTitle}
                 price={item.item.price}
                 status={item.item.status}
+                onPress={() =>
+                  navigation.navigate("detailed-budget", { id: item.item.id })
+                }
               />
             )}
             style={styles.scroll}

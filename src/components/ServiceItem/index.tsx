@@ -29,7 +29,9 @@ export function ServiceItem({
     <View style={styles.container}>
       <View style={styles.right}>
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.subTitle}>{handleLimitText(subTitle)}</Text>
+        <Text style={styles.subTitle}>
+          {edit ? handleLimitText(subTitle) : subTitle}
+        </Text>
       </View>
 
       <View style={styles.left}>

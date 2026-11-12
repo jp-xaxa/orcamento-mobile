@@ -5,12 +5,23 @@ import { styles } from "./styles"
 
 type Props = TouchableOpacityProps & {
   iconName: keyof typeof MaterialIcons.glyphMap
+  type?: "secondary"
 }
 
-export function ButtonIcon({ iconName, ...rest }: Props) {
+export function ButtonIcon({ iconName, type, ...rest }: Props) {
   return (
     <TouchableOpacity style={styles.container} activeOpacity={0.8} {...rest}>
-      <MaterialIcons name={iconName} style={styles.icon} />
+      <MaterialIcons
+        name={iconName}
+        style={[
+          styles.icon,
+          type === "secondary"
+            ? {
+                color: "#DB4D4D",
+              }
+            : { color: "#6A46EB" },
+        ]}
+      />
     </TouchableOpacity>
   )
 }
